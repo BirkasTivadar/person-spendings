@@ -21,6 +21,11 @@ public class PersonsController {
         return personsService.getPersons();
     }
 
+    @GetMapping("{id}")
+    public PersonDto getPersonById(@PathVariable("id") long id) {
+        return personsService.getPersonById(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PersonDto createPerson(@RequestBody CreatePersonCommand command) {
@@ -36,6 +41,12 @@ public class PersonsController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePerson(@PathVariable("id") long id) {
         personsService.deletePerson(id);
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteALL() {
+        personsService.deleteAll();
     }
 
 

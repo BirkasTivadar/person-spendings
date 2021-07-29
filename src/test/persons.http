@@ -1,0 +1,41 @@
+###
+POST http://localhost:8080/api/persons
+Content-Type: application/json
+Accept: application/json
+
+{
+  "socialSecurityNumber": "123456789",
+  "name": "John Doe"
+}
+
+###
+POST http://localhost:8080/api/persons
+Content-Type: application/json
+Accept: application/json
+
+{
+  "socialSecurityNumber": "987654321",
+  "name": "Jane Doe"
+}
+
+###
+GET http://localhost:8080/api/persons/
+Accept: application/json
+
+
+###
+PUT http://localhost:8080/api/persons/3
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "John Jack Doe"
+}
+
+###
+DELETE http://localhost:8080/api/persons/2
+
+
+###
+DELETE http://localhost:8080/api/persons/
+

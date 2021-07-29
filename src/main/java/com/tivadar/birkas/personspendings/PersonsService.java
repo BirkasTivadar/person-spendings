@@ -21,6 +21,11 @@ public class PersonsService {
                 .toList();
     }
 
+    public PersonDto getPersonById(long id) {
+        Person person = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found person with id: " + id));
+        return modelMapper.map(person, PersonDto.class);
+    }
+
     public PersonDto createPerson(CreatePersonCommand command) {
         Person person = new Person(command.getSocialSecurityNumber(), command.getName());
         repository.save(person);
@@ -29,7 +34,7 @@ public class PersonsService {
 
     @Transactional
     public PersonDto changePersonName(long id, ChangePersonNameCommand command) {
-        Person person = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not founa person with this id" + id));
+        Person person = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found person with id: " + id));
         person.setName(command.getName());
         return modelMapper.map(person, PersonDto.class);
     }
@@ -38,7 +43,7 @@ public class PersonsService {
         repository.deleteById(id);
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         repository.deleteAll();
     }
 }
