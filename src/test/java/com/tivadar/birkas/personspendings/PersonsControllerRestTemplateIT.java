@@ -91,6 +91,7 @@ public class PersonsControllerRestTemplateIT {
     }
 
     @Test
+    @DisplayName("Create a person with invalid SSN")
     void createPersonWithInvalidSsn() {
         Problem result = template.postForObject(DEFAULT_URL,
                 new CreatePersonCommand("901456789", "John Doe"),
@@ -100,6 +101,7 @@ public class PersonsControllerRestTemplateIT {
     }
 
     @Test
+    @DisplayName("Create a person with invalid SSN")
     void createPersonWithInvalidName() {
         Problem result = template.postForObject(DEFAULT_URL,
                 new CreatePersonCommand("123456789", "J"),
@@ -109,6 +111,7 @@ public class PersonsControllerRestTemplateIT {
     }
 
     @Test
+    @DisplayName("Not found person")
     void notFoundPersonTest() {
         Problem result = template.getForObject(DEFAULT_URL + "1", Problem.class);
 
@@ -116,4 +119,19 @@ public class PersonsControllerRestTemplateIT {
         assertEquals(Status.NOT_FOUND, result.getStatus());
     }
 
+//    @Test
+//    void changePersonNameWithInvalidName(){
+//        PersonDto person = template.postForObject(DEFAULT_URL,
+//                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
+//
+//        Long id = person.getId();
+//
+//        Problem result = template.postForObject(
+//                DEFAULT_URL + "1",
+//                new ChangePersonNameCommand("J"),
+//                Problem.class);
+//
+//        assertEquals(URI.create("person/invalid-name"), result.getType());
+//        assertEquals(Status.BAD_REQUEST, result.getStatus());
+//    }
 }

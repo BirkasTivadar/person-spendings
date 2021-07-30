@@ -27,7 +27,7 @@ public class PersonsRepositoryIT {
 
     @Test
     @DisplayName("Save two persons then query all")
-    void testPersistAndFindAll() {
+    void testSaveAndFindAll() {
         repository.save(john);
         repository.save(jane);
 
@@ -40,7 +40,7 @@ public class PersonsRepositoryIT {
 
     @Test
     @DisplayName("Save two persons then find one by id")
-    void testPersistAndFindById() {
+    void testSaveAndFindById() {
         repository.save(john);
         repository.save(jane);
 
@@ -54,7 +54,7 @@ public class PersonsRepositoryIT {
 
     @Test
     @DisplayName("Save two persons then delete one by id")
-    void testPersistAndDeleteById() {
+    void testSaveAndDeleteById() {
         repository.save(john);
         repository.save(jane);
 
@@ -70,7 +70,7 @@ public class PersonsRepositoryIT {
 
     @Test
     @DisplayName("Save two persons then delete all")
-    void testPersistAndDeleteAll() {
+    void testSaveAndDeleteAll() {
         repository.save(john);
         repository.save(jane);
 

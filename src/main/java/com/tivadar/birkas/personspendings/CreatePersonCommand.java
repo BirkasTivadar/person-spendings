@@ -12,10 +12,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class CreatePersonCommand {
 
-
     @Ssn
     private String socialSecurityNumber;
 
-    @Size(message = "Name must be large than one characters, and less than fifty-one", min = 2, max = 50)
+    @Size(message = "Name must be large than one characters, and less than fifty-one", min = Person.NAME_LENGTH_MIN, max = Person.NAME_LENGTH_MAX)
     private String name;
 }

@@ -4,19 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDate;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonDto {
+public class CreateSpendingCommand {
 
-    private Long id;
+    private LocalDate date;
 
-    private String socialSecurityNumber;
+    private String productOrService;
 
-    private String name;
+    private int cost;
 
-//    private List<Spending> spendingList;
+//    private Person person;
 }

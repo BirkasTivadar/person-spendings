@@ -4,19 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonDto {
+public class SpendingDto {
 
     private Long id;
 
-    private String socialSecurityNumber;
+    private LocalDate date;
 
-    private String name;
+    private String productOrService;
 
-//    private List<Spending> spendingList;
+    private int cost;
+
+//    private Person person;
 }
