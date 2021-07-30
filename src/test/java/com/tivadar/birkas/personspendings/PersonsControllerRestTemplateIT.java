@@ -1,9 +1,6 @@
 package com.tivadar.birkas.personspendings;
 
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,10 +8,14 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.jdbc.Sql;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 
+import java.net.URI;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Sql(statements = "delete from persons")
@@ -24,7 +25,6 @@ public class PersonsControllerRestTemplateIT {
     TestRestTemplate template;
 
     private static final String DEFAULT_URL = "/api/persons/";
-
 
     @Test
     @DisplayName("Create two persons then query all")
@@ -76,7 +76,7 @@ public class PersonsControllerRestTemplateIT {
 
         long id = person.getId();
 
-        template.put(DEFAULT_URL+id, new ChangePersonNameCommand("John Jack Doe"));
+        template.put(DEFAULT_URL + id, new ChangePersonNameCommand("John Jack Doe"));
 
         PersonDto testPerson = template.exchange(DEFAULT_URL + id,
                 HttpMethod.GET,
@@ -90,7 +90,30 @@ public class PersonsControllerRestTemplateIT {
                 .isEqualTo("John Jack Doe");
     }
 
+    @Test
+    void createPersonWithInvalidSsn() {
+        Problem result = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("901456789", "John Doe"),
+                Problem.class);
 
+        assertEquals(Status.BAD_REQUEST, result.getStatus());
+    }
 
+    @Test
+    void createPersonWithInvalidName() {
+        Problem result = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "J"),
+                Problem.class);
+
+        assertEquals(Status.BAD_REQUEST, result.getStatus());
+    }
+
+    @Test
+    void notFoundPersonTest() {
+        Problem result = template.getForObject(DEFAULT_URL + "1", Problem.class);
+
+        assertEquals(URI.create("person/not-found"), result.getType());
+        assertEquals(Status.NOT_FOUND, result.getStatus());
+    }
 
 }

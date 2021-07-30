@@ -13,6 +13,8 @@ import javax.persistence.*;
 @Table(name = "persons")
 public class Person {
 
+    public static final int SSN_LENGTH = 9;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
