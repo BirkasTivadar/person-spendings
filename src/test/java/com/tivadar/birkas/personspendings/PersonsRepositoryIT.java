@@ -2,6 +2,7 @@ package com.tivadar.birkas.personspendings;
 
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,15 +17,17 @@ public class PersonsRepositoryIT {
     @Autowired
     PersonsRepository repository;
 
+    private Person john = new Person("123456789", "John Doe");
+    private Person jane = new Person("856456789", "Jane Doe");
+
     @BeforeEach
     void init() {
         repository.deleteAll();
     }
 
     @Test
+    @DisplayName("Save two persons then query all")
     void testPersistAndFindAll() {
-        Person john = new Person("123456789", "John Doe");
-        Person jane = new Person("856456789", "Jane Doe");
         repository.save(john);
         repository.save(jane);
 
@@ -36,9 +39,8 @@ public class PersonsRepositoryIT {
     }
 
     @Test
+    @DisplayName("Save two persons then find one by id")
     void testPersistAndFindById() {
-        Person john = new Person("123456789", "John Doe");
-        Person jane = new Person("856456789", "Jane Doe");
         repository.save(john);
         repository.save(jane);
 
@@ -51,9 +53,8 @@ public class PersonsRepositoryIT {
     }
 
     @Test
+    @DisplayName("Save two persons then delete one by id")
     void testPersistAndDeleteById() {
-        Person john = new Person("123456789", "John Doe");
-        Person jane = new Person("856456789", "Jane Doe");
         repository.save(john);
         repository.save(jane);
 
@@ -68,9 +69,8 @@ public class PersonsRepositoryIT {
     }
 
     @Test
+    @DisplayName("Save two persons then delete all")
     void testPersistAndDeleteAll() {
-        Person john = new Person("123456789", "John Doe");
-        Person jane = new Person("856456789", "Jane Doe");
         repository.save(john);
         repository.save(jane);
 
