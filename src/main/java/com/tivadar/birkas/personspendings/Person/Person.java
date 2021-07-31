@@ -1,5 +1,6 @@
-package com.tivadar.birkas.personspendings;
+package com.tivadar.birkas.personspendings.Person;
 
+import com.tivadar.birkas.personspendings.Spending.Spending;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,13 +30,13 @@ public class Person {
     @Column(name = "person_name")
     private String name;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
-//    private List<Spending> spendingList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
+    private List<Spending> spendingList;
 
     public Person(String socialSecurityNumber, String name) {
         this.socialSecurityNumber = socialSecurityNumber;
         this.name = name;
-//        spendingList = new ArrayList<>();
+        spendingList = new ArrayList<>();
     }
 
 //    public void addSpending(Spending spending) {

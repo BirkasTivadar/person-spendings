@@ -1,4 +1,4 @@
-package com.tivadar.birkas.personspendings;
+package com.tivadar.birkas.personspendings.Spending;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -45,5 +45,9 @@ public class SpendingsService {
 
     public void deleteAll() {
         repository.deleteAll();
+    }
+
+    public void hu(){
+
     }
 }

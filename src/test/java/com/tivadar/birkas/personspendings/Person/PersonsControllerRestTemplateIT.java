@@ -1,5 +1,6 @@
-package com.tivadar.birkas.personspendings;
+package com.tivadar.birkas.personspendings.Person;
 
+import com.tivadar.birkas.personspendings.Person.PersonDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

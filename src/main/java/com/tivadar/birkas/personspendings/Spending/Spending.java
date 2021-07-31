@@ -1,6 +1,7 @@
-package com.tivadar.birkas.personspendings;
+package com.tivadar.birkas.personspendings.Spending;
 
 
+import com.tivadar.birkas.personspendings.Person.Person;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,14 +22,17 @@ public class Spending {
     @Column(name = "spending_date")
     private LocalDate date;
 
+//    @Column(name = "spending_date")
+//    private LocalDateTime dateTime;
+
     @Column(name = "product_or_service")
     private String productOrService;
 
     private int cost;
 
     @ManyToOne
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Person person;
 
     public Spending(LocalDate date, String productOrService, int cost) {
@@ -42,5 +46,24 @@ public class Spending {
         this.productOrService = productOrService;
         this.cost = cost;
 //        person.addSpending(this);
+
+//    public Spending(LocalDateTime dateTime, String productOrService, int cost) {
+//        this.dateTime = dateTime;
+//        this.productOrService = productOrService;
+//        this.cost = cost;
+//    }
+//
+//    public Spending(LocalDateTime dateTime, String productOrService, int cost, Person person) {
+//        this.dateTime = dateTime;
+//        this.productOrService = productOrService;
+//        this.cost = cost;
+//        person.addSpending(this);
+//    }
     }
 }
+
+
+
+
+
+

@@ -1,10 +1,11 @@
-package com.tivadar.birkas.personspendings;
+package com.tivadar.birkas.personspendings.Spending;
 
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,13 +33,13 @@ public class SpendingsController {
     @PostMapping
     @Operation(summary = "Create a spending")
     @ResponseStatus(HttpStatus.CREATED)
-    public SpendingDto createSpending(@RequestBody CreateSpendingCommand command) {
+    public SpendingDto createSpending(@Valid @RequestBody CreateSpendingCommand command) {
         return spendingsService.createSpending(command);
     }
 
     @PutMapping("{id}")
     @Operation(summary = "Change the cost of a spending by id")
-    public SpendingDto changeSpendingCost(@PathVariable("id") long id, @RequestBody ChangeSpendingCostCommand command) {
+    public SpendingDto changeSpendingCost(@PathVariable("id") long id, @Valid @RequestBody ChangeSpendingCostCommand command) {
         return spendingsService.changeSpendingCost(id, command);
     }
 

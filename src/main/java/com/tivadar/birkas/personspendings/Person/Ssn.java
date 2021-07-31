@@ -1,4 +1,4 @@
-package com.tivadar.birkas.personspendings;
+package com.tivadar.birkas.personspendings.Person;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
