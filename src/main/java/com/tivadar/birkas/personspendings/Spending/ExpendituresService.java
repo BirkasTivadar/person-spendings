@@ -9,13 +9,13 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class SpendingsService {
+public class ExpendituresService {
 
     private ModelMapper modelMapper;
 
-    private SpendingsRepository repository;
+    private ExpendituresRepository repository;
 
-    public List<SpendingDto> getSpendings() {
+    public List<SpendingDto> getExpenditures() {
         return repository.findAll().stream()
                 .map(sp -> modelMapper.map(sp, SpendingDto.class))
                 .toList();

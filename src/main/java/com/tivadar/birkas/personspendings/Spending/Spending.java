@@ -6,13 +6,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+//import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "spendings")
+@Table(name = "expenditures")
 public class Spending {
 
     @Id
@@ -21,9 +21,6 @@ public class Spending {
 
     @Column(name = "spending_date")
     private LocalDate date;
-
-//    @Column(name = "spending_date")
-//    private LocalDateTime dateTime;
 
     @Column(name = "product_or_service")
     private String productOrService;
@@ -45,22 +42,11 @@ public class Spending {
         this.date = date;
         this.productOrService = productOrService;
         this.cost = cost;
-//        person.addSpending(this);
-
-//    public Spending(LocalDateTime dateTime, String productOrService, int cost) {
-//        this.dateTime = dateTime;
-//        this.productOrService = productOrService;
-//        this.cost = cost;
-//    }
-//
-//    public Spending(LocalDateTime dateTime, String productOrService, int cost, Person person) {
-//        this.dateTime = dateTime;
-//        this.productOrService = productOrService;
-//        this.cost = cost;
-//        person.addSpending(this);
-//    }
+        this.person = person;
     }
+
 }
+
 
 
 

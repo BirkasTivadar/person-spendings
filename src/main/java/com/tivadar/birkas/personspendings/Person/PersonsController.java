@@ -47,6 +47,12 @@ public class PersonsController {
         return personsService.changePersonName(id, command);
     }
 
+    @PostMapping("/{id}")
+    @Operation(summary = "Add a spending to person by id")
+    public PersonDto addSpendingToPerson(@PathVariable("id") long id, @RequestBody AddSpendingCommand command){
+        return personsService.addSpendingToPerson(id, command);
+    }
+
     @DeleteMapping("{id}")
     @Operation(summary = "Delete a person by id")
     @ResponseStatus(HttpStatus.NO_CONTENT)

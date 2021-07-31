@@ -1,5 +1,6 @@
 package com.tivadar.birkas.personspendings.Person;
 
+import com.tivadar.birkas.personspendings.Spending.Spending;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,5 @@ public class PersonDto {
 
     private String name;
 
-//    private List<Spending> spendingList;
+    private List<Spending> spendingList;
 }

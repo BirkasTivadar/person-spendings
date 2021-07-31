@@ -1,6 +1,6 @@
-package com.tivadar.birkas.personspendings.Spending;
+package com.tivadar.birkas.personspendings.Person;
 
-import com.tivadar.birkas.personspendings.Person.Person;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,11 +10,10 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateSpendingCommand {
+public class AddSpendingCommand {
 
     private LocalDate date;
 
@@ -24,5 +23,4 @@ public class CreateSpendingCommand {
 
     @Positive(message = "Cost must be larger than zero")
     private int cost;
-
 }

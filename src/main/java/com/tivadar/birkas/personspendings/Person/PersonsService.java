@@ -1,5 +1,6 @@
 package com.tivadar.birkas.personspendings.Person;
 
+import com.tivadar.birkas.personspendings.Spending.Spending;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class PersonsService {
+
+    private static final String NOT_FOUND_PERSON_WITH_ID = "Not found person with id: ";
 
     private ModelMapper modelMapper;
 
@@ -39,6 +42,14 @@ public class PersonsService {
         return modelMapper.map(person, PersonDto.class);
     }
 
+    @Transactional
+    public PersonDto addSpendingToPerson(long id, AddSpendingCommand command) {
+        Person person = repository.findById(id).orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_PERSON_WITH_ID + id));
+        Spending spending = new Spending(command.getDate(), command.getProductOrService(), command.getCost());
+        person.addSpending(spending);
+    return modelMapper.map(person, PersonDto.class);
+    }
+
     public void deletePerson(long id) {
         repository.deleteById(id);
     }
@@ -46,4 +57,5 @@ public class PersonsService {
     public void deleteAll() {
         repository.deleteAll();
     }
+
 }

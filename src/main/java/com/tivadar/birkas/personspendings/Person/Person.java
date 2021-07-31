@@ -39,9 +39,9 @@ public class Person {
         spendingList = new ArrayList<>();
     }
 
-//    public void addSpending(Spending spending) {
-//        spendingList.add(spending);
-//        spending.setPerson(this);
-//    }
+    public void addSpending(Spending spending) {
+        spendingList.add(spending);
+        spending.setPerson(this);
+    }
 
 }

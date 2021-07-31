@@ -9,52 +9,52 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/spendings")
-public class SpendingsController {
+@RequestMapping("/api/expenditures")
+public class ExpendituresController {
 
-    private SpendingsService spendingsService;
+    private ExpendituresService expendituresService;
 
-    public SpendingsController(SpendingsService spendingsService) {
-        this.spendingsService = spendingsService;
+    public ExpendituresController(ExpendituresService expendituresService) {
+        this.expendituresService = expendituresService;
     }
 
     @GetMapping
-    @Operation(summary = "Query all spendings")
-    public List<SpendingDto> getSpendings() {
-        return spendingsService.getSpendings();
+    @Operation(summary = "Query all expenditures")
+    public List<SpendingDto> getExpenditures() {
+        return expendituresService.getExpenditures();
     }
 
     @GetMapping("{id}")
     @Operation(summary = "Query a spending by id")
     public SpendingDto getSpendingById(@PathVariable("id") long id) {
-        return spendingsService.getSpendingById(id);
+        return expendituresService.getSpendingById(id);
     }
 
     @PostMapping
     @Operation(summary = "Create a spending")
     @ResponseStatus(HttpStatus.CREATED)
     public SpendingDto createSpending(@Valid @RequestBody CreateSpendingCommand command) {
-        return spendingsService.createSpending(command);
+        return expendituresService.createSpending(command);
     }
 
     @PutMapping("{id}")
     @Operation(summary = "Change the cost of a spending by id")
     public SpendingDto changeSpendingCost(@PathVariable("id") long id, @Valid @RequestBody ChangeSpendingCostCommand command) {
-        return spendingsService.changeSpendingCost(id, command);
+        return expendituresService.changeSpendingCost(id, command);
     }
 
     @DeleteMapping("{id}")
     @Operation(summary = "Delete a spending by id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSpending(@PathVariable("id") long id) {
-        spendingsService.deleteSpending(id);
+        expendituresService.deleteSpending(id);
     }
 
     @DeleteMapping
-    @Operation(summary = "Delete all spendings")
+    @Operation(summary = "Delete all expenditures")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteALL() {
-        spendingsService.deleteAll();
+        expendituresService.deleteAll();
     }
 
 
