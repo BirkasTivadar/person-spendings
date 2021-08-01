@@ -1,6 +1,7 @@
 package com.tivadar.birkas.personspendings.Spending;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tivadar.birkas.personspendings.Person.Person;
 import lombok.*;
 
@@ -30,6 +31,7 @@ public class Spending {
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     private Person person;
 
     public Spending(LocalDate date, String productOrService, int cost) {
