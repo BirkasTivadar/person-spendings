@@ -1,6 +1,5 @@
 package com.tivadar.birkas.personspendings.Person;
 
-import com.tivadar.birkas.personspendings.Person.PersonDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +54,6 @@ public class PersonsControllerRestTemplateIT {
     void testGetPersonById() {
         PersonDto person = template.postForObject(DEFAULT_URL,
                 new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
-
 
         long id = person.getId();
 
@@ -113,6 +111,31 @@ public class PersonsControllerRestTemplateIT {
         int cost = testPerson.getSpendingList().get(0).getCost();
 
         assertEquals(200_000, cost);
+    }
+
+    @Test
+    void testSumCosts() {
+        PersonDto person = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
+
+        long id = person.getId();
+
+        template.postForObject(DEFAULT_URL + id,
+                new AddSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), PersonDto.class);
+
+        template.postForObject(DEFAULT_URL + id,
+                new AddSpendingCommand(LocalDate.of(2010, 10, 10), "haircut", 1850), PersonDto.class);
+
+        template.postForObject(DEFAULT_URL + id,
+                new AddSpendingCommand(LocalDate.of(2020, 12, 20), "apple", 75), PersonDto.class);
+
+        PersonDto testPerson = template.exchange(DEFAULT_URL + id,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<PersonDto>() {
+                }).getBody();
+
+        assertEquals(201_925, testPerson.getSumCosts());
     }
 
     @Test

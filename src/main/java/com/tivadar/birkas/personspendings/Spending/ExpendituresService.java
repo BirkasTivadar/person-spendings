@@ -46,8 +46,4 @@ public class ExpendituresService {
     public void deleteAll() {
         repository.deleteAll();
     }
-
-    public void hu(){
-
-    }
 }

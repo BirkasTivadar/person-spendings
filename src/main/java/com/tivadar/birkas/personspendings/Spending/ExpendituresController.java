@@ -1,6 +1,5 @@
 package com.tivadar.birkas.personspendings.Spending;
 
-
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -76,5 +75,4 @@ public class ExpendituresController {
                 .contentType(MediaType.APPLICATION_PROBLEM_JSON)
                 .body(problem);
     }
-
 }

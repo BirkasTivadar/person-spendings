@@ -1,11 +1,11 @@
 package com.tivadar.birkas.personspendings.Spending;
 
+import com.tivadar.birkas.personspendings.Person.Person;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-//import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -16,11 +16,9 @@ public class SpendingDto {
 
     private LocalDate date;
 
-//    private LocalDateTime dateTime;
-
     private String productOrService;
 
     private int cost;
 
-//    private Person person;
+    private Person person;
 }

@@ -47,7 +47,7 @@ public class PersonsService {
         Person person = repository.findById(id).orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_PERSON_WITH_ID + id));
         Spending spending = new Spending(command.getDate(), command.getProductOrService(), command.getCost());
         person.addSpending(spending);
-    return modelMapper.map(person, PersonDto.class);
+        return modelMapper.map(person, PersonDto.class);
     }
 
     public void deletePerson(long id) {
@@ -57,5 +57,4 @@ public class PersonsService {
     public void deleteAll() {
         repository.deleteAll();
     }
-
 }

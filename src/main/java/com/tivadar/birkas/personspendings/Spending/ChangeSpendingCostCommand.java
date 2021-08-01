@@ -1,6 +1,5 @@
 package com.tivadar.birkas.personspendings.Spending;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

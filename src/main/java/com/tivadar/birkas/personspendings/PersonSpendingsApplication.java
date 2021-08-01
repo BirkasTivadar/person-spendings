@@ -16,5 +16,4 @@ public class PersonSpendingsApplication {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
 }

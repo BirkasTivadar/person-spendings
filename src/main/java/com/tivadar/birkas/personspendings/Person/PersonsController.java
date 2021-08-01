@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/persons")
+@RequestMapping("/api/persons/")
 public class PersonsController {
 
     private PersonsService personsService;
@@ -41,15 +41,15 @@ public class PersonsController {
         return personsService.createPerson(command);
     }
 
-    @PutMapping ("{id}")
+    @PutMapping("{id}")
     @Operation(summary = "Change the name of a person by id")
-    public PersonDto changePersonName(@PathVariable("id") long id,@Valid @RequestBody ChangePersonNameCommand command) {
+    public PersonDto changePersonName(@PathVariable("id") long id, @Valid @RequestBody ChangePersonNameCommand command) {
         return personsService.changePersonName(id, command);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("{id}")
     @Operation(summary = "Add a spending to person by id")
-    public PersonDto addSpendingToPerson(@PathVariable("id") long id, @RequestBody AddSpendingCommand command){
+    public PersonDto addSpendingToPerson(@PathVariable("id") long id, @RequestBody AddSpendingCommand command) {
         return personsService.addSpendingToPerson(id, command);
     }
 

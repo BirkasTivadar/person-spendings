@@ -39,7 +39,6 @@ public class Person {
     public Person(String socialSecurityNumber, String name) {
         this.socialSecurityNumber = socialSecurityNumber;
         this.name = name;
-//        spendingList = new ArrayList<>();
     }
 
     public void addSpending(Spending spending) {
@@ -50,5 +49,4 @@ public class Person {
         spending.setPerson(this);
         this.sumCosts += spending.getCost();
     }
-
 }
