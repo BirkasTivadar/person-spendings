@@ -13,12 +13,14 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Sql(statements = "delete from expenditures")
 @Sql(statements = "delete from persons")
 public class PersonsControllerRestTemplateIT {
 
@@ -92,6 +94,28 @@ public class PersonsControllerRestTemplateIT {
     }
 
     @Test
+    @DisplayName("Create a person, add a spending to it, then query")
+    void testAddSpendingToPerson() {
+        PersonDto person = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
+
+        long id = person.getId();
+
+        template.postForObject(DEFAULT_URL + id,
+                new AddSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), PersonDto.class);
+
+        PersonDto testPerson = template.exchange(DEFAULT_URL + id,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<PersonDto>() {
+                }).getBody();
+
+        int cost = testPerson.getSpendingList().get(0).getCost();
+
+        assertEquals(200_000, cost);
+    }
+
+    @Test
     @DisplayName("Create a person with invalid SSN")
     void testCreatePersonWithInvalidSsn() {
         Problem result = template.postForObject(DEFAULT_URL,
@@ -119,6 +143,7 @@ public class PersonsControllerRestTemplateIT {
         assertEquals(URI.create("person/not-found"), result.getType());
         assertEquals(Status.NOT_FOUND, result.getStatus());
     }
+
 
 //    @Test
 //    void changePersonNameWithInvalidName(){

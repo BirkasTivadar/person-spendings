@@ -19,5 +19,9 @@ public class PersonDto {
 
     private String name;
 
+    private Long sumCosts;
+
     private List<Spending> spendingList;
+
+
 }
