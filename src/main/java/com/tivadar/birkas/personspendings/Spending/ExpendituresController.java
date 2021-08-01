@@ -3,9 +3,14 @@ package com.tivadar.birkas.personspendings.Spending;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -57,5 +62,19 @@ public class ExpendituresController {
         expendituresService.deleteAll();
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Problem> handleNotFound(IllegalArgumentException exception) {
+        Problem problem = Problem.builder()
+                .withType(URI.create("expenditures/not-found"))
+                .withTitle("Not Found")
+                .withStatus(Status.NOT_FOUND)
+                .withDetail(exception.getMessage())
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+                .body(problem);
+    }
 
 }

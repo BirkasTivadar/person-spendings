@@ -93,7 +93,7 @@ public class PersonsControllerRestTemplateIT {
 
     @Test
     @DisplayName("Create a person with invalid SSN")
-    void createPersonWithInvalidSsn() {
+    void testCreatePersonWithInvalidSsn() {
         Problem result = template.postForObject(DEFAULT_URL,
                 new CreatePersonCommand("901456789", "John Doe"),
                 Problem.class);
@@ -102,8 +102,8 @@ public class PersonsControllerRestTemplateIT {
     }
 
     @Test
-    @DisplayName("Create a person with invalid SSN")
-    void createPersonWithInvalidName() {
+    @DisplayName("Create a person with invalid name")
+    void testCreatePersonWithInvalidName() {
         Problem result = template.postForObject(DEFAULT_URL,
                 new CreatePersonCommand("123456789", "J"),
                 Problem.class);
@@ -113,7 +113,7 @@ public class PersonsControllerRestTemplateIT {
 
     @Test
     @DisplayName("Not found person")
-    void notFoundPersonTest() {
+    void testNotFoundPersonTest() {
         Problem result = template.getForObject(DEFAULT_URL + "1", Problem.class);
 
         assertEquals(URI.create("person/not-found"), result.getType());
