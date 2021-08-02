@@ -1,5 +1,6 @@
 package com.tivadar.birkas.personspendings.Person;
 
+import com.tivadar.birkas.personspendings.Spending.ExpendituresRepository;
 import com.tivadar.birkas.personspendings.Spending.Spending;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,8 @@ public class PersonsService {
 
     private PersonsRepository repository;
 
+    private ExpendituresRepository expendituresRepository;
+
     public List<PersonDto> getPersons() {
         return repository.findAll().stream()
                 .map(p -> modelMapper.map(p, PersonDto.class))
@@ -31,9 +34,23 @@ public class PersonsService {
 
     public PersonDto createPerson(CreatePersonCommand command) {
         Person person = new Person(command.getSocialSecurityNumber(), command.getName());
-        repository.save(person);
+        if (!repository.existsPersonBySocialSecurityNumber(command.getSocialSecurityNumber())) {
+            repository.save(person);
+        } else {
+            person = repository.findPersonBySocialSecurityNumber(command.getSocialSecurityNumber());
+//            setPerson(person, command);
+        }
         return modelMapper.map(person, PersonDto.class);
     }
+
+//    private void setPerson(Person person, CreatePersonCommand command) {
+//        String ssn = command.getSocialSecurityNumber();
+//        Long id = repository.findIdBySSN(ssn);
+//        person.setId(id);
+//        person.setName(repository.findNameBySSN(ssn));
+//        person.setSumCosts(repository.findSumCostsBySSN(ssn));
+//        person.setSpendingList(expendituresRepository.findAllByPerson_Id(id));
+//    }
 
     @Transactional
     public PersonDto changePersonName(long id, ChangePersonNameCommand command) {

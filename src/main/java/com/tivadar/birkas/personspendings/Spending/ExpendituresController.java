@@ -34,6 +34,12 @@ public class ExpendituresController {
         return expendituresService.getSpendingById(id);
     }
 
+    @GetMapping("/persons/{id}")
+    @Operation(summary = "Query all expenditures by person id")
+    public List<SpendingDto> getExpendituresByPersonId(@PathVariable("id") long id){
+        return expendituresService.getExpendituresByPersonId(id);
+    }
+
     @PostMapping
     @Operation(summary = "Create a spending")
     @ResponseStatus(HttpStatus.CREATED)

@@ -92,6 +92,20 @@ public class PersonsControllerRestTemplateIT {
     }
 
     @Test
+    @DisplayName("Create a person with exists SSN")
+    void testCreatePersonWithExistsSsn() {
+        PersonDto person = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
+
+        long id = person.getId();
+
+        PersonDto testPerson = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "Jack Doe"), PersonDto.class);
+
+        assertEquals(testPerson.getName(), person.getName());
+    }
+
+    @Test
     @DisplayName("Create a person, add a spending to it, then query")
     void testAddSpendingToPerson() {
         PersonDto person = template.postForObject(DEFAULT_URL,
@@ -114,6 +128,7 @@ public class PersonsControllerRestTemplateIT {
     }
 
     @Test
+    @DisplayName("Create a person and add it some expenditures then query sum of costs")
     void testSumCosts() {
         PersonDto person = template.postForObject(DEFAULT_URL,
                 new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
