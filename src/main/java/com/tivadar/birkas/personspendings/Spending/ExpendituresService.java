@@ -36,19 +36,15 @@ public class ExpendituresService {
     @Transactional
     public SpendingDto changeSpendingCost(long id, ChangeSpendingCostCommand command) {
         Spending spending = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found spending with id: " + id));
-        setSumCostOfPerson(command, spending);
-        return modelMapper.map(spending, SpendingDto.class);
-    }
-
-    private void setSumCostOfPerson(ChangeSpendingCostCommand command, Spending spending) {
         int minusCost = spending.getCost();
-        int plusCost = command.getCost();
+        int newCost = command.getCost();
         Person person = spending.getPerson();
         long cost = person.getSumCosts();
         cost -= minusCost;
-        cost += plusCost;
+        cost += newCost;
         person.setSumCosts(cost);
         spending.setCost(command.getCost());
+        return modelMapper.map(spending, SpendingDto.class);
     }
 
     public void deleteSpending(long id) {

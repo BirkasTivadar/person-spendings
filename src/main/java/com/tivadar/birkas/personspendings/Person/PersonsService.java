@@ -38,19 +38,9 @@ public class PersonsService {
             repository.save(person);
         } else {
             person = repository.findPersonBySocialSecurityNumber(command.getSocialSecurityNumber());
-//            setPerson(person, command);
         }
         return modelMapper.map(person, PersonDto.class);
     }
-
-//    private void setPerson(Person person, CreatePersonCommand command) {
-//        String ssn = command.getSocialSecurityNumber();
-//        Long id = repository.findIdBySSN(ssn);
-//        person.setId(id);
-//        person.setName(repository.findNameBySSN(ssn));
-//        person.setSumCosts(repository.findSumCostsBySSN(ssn));
-//        person.setSpendingList(expendituresRepository.findAllByPerson_Id(id));
-//    }
 
     @Transactional
     public PersonDto changePersonName(long id, ChangePersonNameCommand command) {

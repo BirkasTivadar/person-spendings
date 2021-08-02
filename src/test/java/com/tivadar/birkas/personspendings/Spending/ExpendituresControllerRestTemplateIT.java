@@ -69,28 +69,6 @@ public class ExpendituresControllerRestTemplateIT {
     }
 
     @Test
-    @DisplayName("Create a spending and update then query")
-    void testUpdateSpending() {
-        SpendingDto spending = template.postForObject(DEFAULT_URL,
-                new CreateSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), SpendingDto.class);
-
-        long id = spending.getId();
-
-        template.put(DEFAULT_URL + id, new ChangeSpendingCostCommand(15_000));
-
-        SpendingDto testSpending = template.exchange(DEFAULT_URL + id,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<SpendingDto>() {
-                })
-                .getBody();
-
-        assertThat(testSpending)
-                .extracting(SpendingDto::getCost)
-                .isEqualTo(15_000);
-    }
-
-    @Test
     @DisplayName("Create a spending with minus cost")
     void testCreateSpendingWithMinusCost() {
         Problem result = template.postForObject(DEFAULT_URL,
