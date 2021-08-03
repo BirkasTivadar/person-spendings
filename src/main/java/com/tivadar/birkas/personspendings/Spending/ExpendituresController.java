@@ -35,9 +35,21 @@ public class ExpendituresController {
     }
 
     @GetMapping("/persons/{id}")
-    @Operation(summary = "Query all expenditures by person id")
-    public List<SpendingDto> getExpendituresByPersonId(@PathVariable("id") long id){
+    @Operation(summary = "Query all expenditures of a person by person's id")
+    public List<SpendingDto> getExpendituresByPersonId(@PathVariable("id") long id) {
         return expendituresService.getExpendituresByPersonId(id);
+    }
+
+    @GetMapping("/persons/{id}/expenditures_between/{min}/and/{max}")
+    @Operation(summary = "Query all expenditures of a person by person's id between two cost")
+    public List<SpendingDto> getExpendituresByPerson_IdAndCostBetween(@PathVariable("id") long id, @PathVariable("min") int min, @PathVariable("max") int max) {
+        return expendituresService.getExpendituresByPerson_IdAndCostBetween(id, min, max);
+    }
+
+    @GetMapping("/years/{numberOfYear}/months/{numberOfMonth}")
+    @Operation(summary = "Query sum of costs of this month")
+    public Integer getSumCostsOfMonth(@PathVariable("numberOfYear") int numberOfYear, @PathVariable("numberOfMonth") int numberOfMonth) {
+        return expendituresService.getSumCostsOfMonth(numberOfYear, numberOfMonth);
     }
 
     @PostMapping

@@ -34,6 +34,7 @@ public class PersonsController {
         return personsService.getPersonById(id);
     }
 
+
     @PostMapping
     @Operation(summary = "Create a person")
     @ResponseStatus(HttpStatus.CREATED)

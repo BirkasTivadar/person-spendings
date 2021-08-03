@@ -31,10 +31,10 @@ public class ExpendituresControllerRestTemplateIT {
     @DisplayName("Create two expenditures then query all")
     void testGetExpenditures() {
         template.postForObject(DEFAULT_URL,
-                new CreateSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), SpendingDto.class);
+                new CreateSpendingCommand(LocalDate.of(2000, 1, 1), "Apple laptop", 200_000), SpendingDto.class);
 
         template.postForObject(DEFAULT_URL,
-                new CreateSpendingCommand(LocalDate.of(2020, 06, 30), "haircut", 1800), SpendingDto.class);
+                new CreateSpendingCommand(LocalDate.of(2020, 6, 30), "haircut", 1800), SpendingDto.class);
 
         List<SpendingDto> spendingDtoList = template.exchange(DEFAULT_URL,
                 HttpMethod.GET,
@@ -52,7 +52,7 @@ public class ExpendituresControllerRestTemplateIT {
     @DisplayName("Create a spending then query by id")
     void testGetSpendingById() {
         SpendingDto spending = template.postForObject(DEFAULT_URL,
-                new CreateSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), SpendingDto.class);
+                new CreateSpendingCommand(LocalDate.of(2000, 1, 1), "Apple laptop", 200_000), SpendingDto.class);
 
         long id = spending.getId();
 
@@ -64,15 +64,37 @@ public class ExpendituresControllerRestTemplateIT {
                 .getBody();
 
         assertThat(testSpending)
-                .extracting(SpendingDto::getDate)
-                .isEqualTo(LocalDate.of(2000, 01, 01));
+                .extracting(SpendingDto::getSpendingDate)
+                .isEqualTo(LocalDate.of(2000, 1, 1));
     }
+
+//    @Test
+//    @DisplayName("Create a spending and update then query")
+//    void testUpdateSpending() {
+//        SpendingDto spending = template.postForObject(DEFAULT_URL,
+//                new CreateSpendingCommand(LocalDate.of(2000, 1, 1), "Apple laptop", 200_000), SpendingDto.class);
+//
+//        long id = spending.getId();
+//
+//        template.put(DEFAULT_URL + id, new ChangeSpendingCostCommand(15_000));
+//
+//        SpendingDto testSpending = template.exchange(DEFAULT_URL + id,
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<SpendingDto>() {
+//                })
+//                .getBody();
+//
+//        assertThat(testSpending)
+//                .extracting(SpendingDto::getCost)
+//                .isEqualTo(15_000);
+//    }
 
     @Test
     @DisplayName("Create a spending with minus cost")
     void testCreateSpendingWithMinusCost() {
         Problem result = template.postForObject(DEFAULT_URL,
-                new CreateSpendingCommand(LocalDate.of(2020, 06, 30), "haircut", -200), Problem.class);
+                new CreateSpendingCommand(LocalDate.of(2020, 6, 30), "haircut", -200), Problem.class);
 
         assertEquals(Status.BAD_REQUEST, result.getStatus());
     }
@@ -81,7 +103,7 @@ public class ExpendituresControllerRestTemplateIT {
     @DisplayName("Create a spending with empty name")
     void testCreateSpendingWithEmptyName() {
         Problem result = template.postForObject(DEFAULT_URL,
-                new CreateSpendingCommand(LocalDate.of(2020, 06, 30), "   ", 200), Problem.class);
+                new CreateSpendingCommand(LocalDate.of(2020, 6, 30), "   ", 200), Problem.class);
 
         assertEquals(Status.BAD_REQUEST, result.getStatus());
     }

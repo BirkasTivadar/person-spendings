@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CreateSpendingCommand {
 
-    private LocalDate date;
+    private LocalDate spendingDate;
 
     @NotBlank(message = "Product or service can not be blank")
     @Size(message = "Product or service  must be less than one hundred characters", max = 99)

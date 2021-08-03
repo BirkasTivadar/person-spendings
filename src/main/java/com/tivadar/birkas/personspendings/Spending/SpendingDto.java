@@ -14,7 +14,7 @@ public class SpendingDto {
 
     private Long id;
 
-    private LocalDate date;
+    private LocalDate spendingDate;
 
     private String productOrService;
 

@@ -28,14 +28,30 @@ public class ExpendituresService {
     }
 
     public SpendingDto createSpending(CreateSpendingCommand command) {
-        Spending spending = new Spending(command.getDate(), command.getProductOrService(), command.getCost());
+        Spending spending = new Spending(command.getSpendingDate(), command.getProductOrService(), command.getCost());
         repository.save(spending);
         return modelMapper.map(spending, SpendingDto.class);
+    }
+
+    public List<SpendingDto> getExpendituresByPerson_IdAndCostBetween(Long id, int min, int max) {
+        return repository.findAllByPerson_IdAndCostBetween(id, min, max).stream()
+                .map(sp -> modelMapper.map(sp, SpendingDto.class))
+                .toList();
+    }
+
+    public Integer getSumCostsOfMonth(int numOfYear, int numOfMonth){
+        return repository.sumCostsOfMonth(numOfYear, numOfMonth);
     }
 
     @Transactional
     public SpendingDto changeSpendingCost(long id, ChangeSpendingCostCommand command) {
         Spending spending = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found spending with id: " + id));
+        setSumCosts(command, spending);
+        spending.setCost(command.getCost());
+        return modelMapper.map(spending, SpendingDto.class);
+    }
+
+    private void setSumCosts(ChangeSpendingCostCommand command, Spending spending) {
         int minusCost = spending.getCost();
         int newCost = command.getCost();
         Person person = spending.getPerson();
@@ -43,8 +59,6 @@ public class ExpendituresService {
         cost -= minusCost;
         cost += newCost;
         person.setSumCosts(cost);
-        spending.setCost(command.getCost());
-        return modelMapper.map(spending, SpendingDto.class);
     }
 
     public void deleteSpending(long id) {
