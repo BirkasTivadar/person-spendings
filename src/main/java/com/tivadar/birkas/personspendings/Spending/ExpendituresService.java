@@ -12,6 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ExpendituresService {
 
+    private static final String NOT_FOUND_SPENDING_WITH_ID = "Not found person with id: ";
+
     private ModelMapper modelMapper;
 
     private ExpendituresRepository repository;
@@ -23,7 +25,7 @@ public class ExpendituresService {
     }
 
     public SpendingDto getSpendingById(long id) {
-        Spending spending = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found spending with id: " + id));
+        Spending spending = repository.findById(id).orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_SPENDING_WITH_ID + id));
         return modelMapper.map(spending, SpendingDto.class);
     }
 
@@ -45,7 +47,7 @@ public class ExpendituresService {
 
     @Transactional
     public SpendingDto changeSpendingCost(long id, ChangeSpendingCostCommand command) {
-        Spending spending = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found spending with id: " + id));
+        Spending spending = repository.findById(id).orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_SPENDING_WITH_ID + id));
         setSumCosts(command, spending);
         spending.setCost(command.getCost());
         return modelMapper.map(spending, SpendingDto.class);
@@ -54,11 +56,13 @@ public class ExpendituresService {
     private void setSumCosts(ChangeSpendingCostCommand command, Spending spending) {
         int minusCost = spending.getCost();
         int newCost = command.getCost();
-        Person person = spending.getPerson();
-        long cost = person.getSumCosts();
-        cost -= minusCost;
-        cost += newCost;
-        person.setSumCosts(cost);
+        if(spending.getPerson() != null){
+            Person person = spending.getPerson();
+            long cost = person.getSumCosts();
+            cost -= minusCost;
+            cost += newCost;
+            person.setSumCosts(cost);
+        }
     }
 
     public void deleteSpending(long id) {

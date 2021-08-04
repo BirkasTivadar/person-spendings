@@ -28,35 +28,24 @@ public class ExpendituresController {
         return expendituresService.getExpenditures();
     }
 
-    @GetMapping("{id}")
-    @Operation(summary = "Query a spending by id")
-    public SpendingDto getSpendingById(@PathVariable("id") long id) {
-        return expendituresService.getSpendingById(id);
-    }
-
-    @GetMapping("/persons/{id}")
-    @Operation(summary = "Query all expenditures of a person by person's id")
-    public List<SpendingDto> getExpendituresByPersonId(@PathVariable("id") long id) {
-        return expendituresService.getExpendituresByPersonId(id);
-    }
-
-    @GetMapping("/persons/{id}/expenditures_between/{min}/and/{max}")
-    @Operation(summary = "Query all expenditures of a person by person's id between two cost")
-    public List<SpendingDto> getExpendituresByPerson_IdAndCostBetween(@PathVariable("id") long id, @PathVariable("min") int min, @PathVariable("max") int max) {
-        return expendituresService.getExpendituresByPerson_IdAndCostBetween(id, min, max);
-    }
-
-    @GetMapping("/years/{numberOfYear}/months/{numberOfMonth}")
-    @Operation(summary = "Query sum of costs of this month")
-    public Integer getSumCostsOfMonth(@PathVariable("numberOfYear") int numberOfYear, @PathVariable("numberOfMonth") int numberOfMonth) {
-        return expendituresService.getSumCostsOfMonth(numberOfYear, numberOfMonth);
-    }
-
     @PostMapping
     @Operation(summary = "Create a spending")
     @ResponseStatus(HttpStatus.CREATED)
     public SpendingDto createSpending(@Valid @RequestBody CreateSpendingCommand command) {
         return expendituresService.createSpending(command);
+    }
+
+    @DeleteMapping
+    @Operation(summary = "Delete all expenditures")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteALL() {
+        expendituresService.deleteAll();
+    }
+
+    @GetMapping("{id}")
+    @Operation(summary = "Query a spending by id")
+    public SpendingDto getSpendingById(@PathVariable("id") long id) {
+        return expendituresService.getSpendingById(id);
     }
 
     @PutMapping("{id}")
@@ -72,11 +61,22 @@ public class ExpendituresController {
         expendituresService.deleteSpending(id);
     }
 
-    @DeleteMapping
-    @Operation(summary = "Delete all expenditures")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteALL() {
-        expendituresService.deleteAll();
+    @GetMapping("/persons/{id}")
+    @Operation(summary = "Query all expenditures of a person by person's id")
+    public List<SpendingDto> getExpendituresByPersonId(@PathVariable("id") long id) {
+        return expendituresService.getExpendituresByPersonId(id);
+    }
+
+    @GetMapping("/persons/{id}/betweencosts/{min}/and/{max}")
+    @Operation(summary = "Query all expenditures of a person by person's id between two cost")
+    public List<SpendingDto> getExpendituresByPerson_IdAndCostBetween(@PathVariable("id") long id, @PathVariable("min") int min, @PathVariable("max") int max) {
+        return expendituresService.getExpendituresByPerson_IdAndCostBetween(id, min, max);
+    }
+
+    @GetMapping("/years/{numberOfYear}/months/{numberOfMonth}")
+    @Operation(summary = "Query sum of costs of this month")
+    public Integer getSumCostsOfMonth(@PathVariable("numberOfYear") int numberOfYear, @PathVariable("numberOfMonth") int numberOfMonth) {
+        return expendituresService.getSumCostsOfMonth(numberOfYear, numberOfMonth);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

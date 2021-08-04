@@ -2,6 +2,7 @@ package com.tivadar.birkas.personspendings.Person;
 
 import com.tivadar.birkas.personspendings.Spending.ExpendituresRepository;
 import com.tivadar.birkas.personspendings.Spending.Spending;
+import com.tivadar.birkas.personspendings.Spending.SpendingDto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class PersonsService {
     }
 
     public PersonDto getPersonById(long id) {
-        Person person = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found person with id: " + id));
+        Person person = repository.findById(id).orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_PERSON_WITH_ID + id));
         return modelMapper.map(person, PersonDto.class);
     }
 
@@ -44,7 +45,7 @@ public class PersonsService {
 
     @Transactional
     public PersonDto changePersonName(long id, ChangePersonNameCommand command) {
-        Person person = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found person with id: " + id));
+        Person person = repository.findById(id).orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_PERSON_WITH_ID + id));
         person.setName(command.getName());
         return modelMapper.map(person, PersonDto.class);
     }

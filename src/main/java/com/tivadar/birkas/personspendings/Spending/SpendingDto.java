@@ -1,6 +1,7 @@
 package com.tivadar.birkas.personspendings.Spending;
 
 import com.tivadar.birkas.personspendings.Person.Person;
+import com.tivadar.birkas.personspendings.Person.PersonDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,19 @@ public class SpendingDto {
 
     private int cost;
 
-    private Person person;
+    private PersonDto person;
+
+    public SpendingDto(LocalDate spendingDate, String productOrService, int cost) {
+        this.spendingDate = spendingDate;
+        this.productOrService = productOrService;
+        this.cost = cost;
+    }
+
+    public SpendingDto(LocalDate spendingDate, String productOrService, int cost, PersonDto person) {
+        this.spendingDate = spendingDate;
+        this.productOrService = productOrService;
+        this.cost = cost;
+        this.person = person;
+    }
+
 }

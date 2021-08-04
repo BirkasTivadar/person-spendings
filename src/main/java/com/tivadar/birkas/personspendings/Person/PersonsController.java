@@ -1,5 +1,6 @@
 package com.tivadar.birkas.personspendings.Person;
 
+import com.tivadar.birkas.personspendings.Spending.SpendingDto;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,18 +29,24 @@ public class PersonsController {
         return personsService.getPersons();
     }
 
-    @GetMapping("{id}")
-    @Operation(summary = "Query a person by id")
-    public PersonDto getPersonById(@PathVariable("id") long id) {
-        return personsService.getPersonById(id);
-    }
-
-
     @PostMapping
     @Operation(summary = "Create a person")
     @ResponseStatus(HttpStatus.CREATED)
     public PersonDto createPerson(@Valid @RequestBody CreatePersonCommand command) {
         return personsService.createPerson(command);
+    }
+
+    @DeleteMapping
+    @Operation(summary = "Delete all persons")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteALL() {
+        personsService.deleteAll();
+    }
+
+    @GetMapping("{id}")
+    @Operation(summary = "Query a person by id")
+    public PersonDto getPersonById(@PathVariable("id") long id) {
+        return personsService.getPersonById(id);
     }
 
     @PutMapping("{id}")
@@ -59,13 +66,6 @@ public class PersonsController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePerson(@PathVariable("id") long id) {
         personsService.deletePerson(id);
-    }
-
-    @DeleteMapping
-    @Operation(summary = "Delete all persons")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteALL() {
-        personsService.deleteAll();
     }
 
 
