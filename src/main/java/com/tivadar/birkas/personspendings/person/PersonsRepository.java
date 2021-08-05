@@ -1,10 +1,6 @@
-package com.tivadar.birkas.personspendings.Person;
+package com.tivadar.birkas.personspendings.person;
 
-import com.tivadar.birkas.personspendings.Spending.Spending;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
 
 public interface PersonsRepository extends JpaRepository<Person, Long> {
 

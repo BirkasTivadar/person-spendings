@@ -1,8 +1,7 @@
-package com.tivadar.birkas.personspendings.Person;
+package com.tivadar.birkas.personspendings.person;
 
-import com.tivadar.birkas.personspendings.Spending.ExpendituresRepository;
-import com.tivadar.birkas.personspendings.Spending.Spending;
-import com.tivadar.birkas.personspendings.Spending.SpendingDto;
+import com.tivadar.birkas.personspendings.spending.ExpendituresRepository;
+import com.tivadar.birkas.personspendings.spending.Spending;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

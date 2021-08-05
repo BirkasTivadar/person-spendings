@@ -1,4 +1,4 @@
-package com.tivadar.birkas.personspendings.Spending;
+package com.tivadar.birkas.personspendings.spending;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

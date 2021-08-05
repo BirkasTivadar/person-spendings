@@ -1,6 +1,5 @@
-package com.tivadar.birkas.personspendings.Person;
+package com.tivadar.birkas.personspendings.person;
 
-import com.tivadar.birkas.personspendings.Spending.SpendingDto;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

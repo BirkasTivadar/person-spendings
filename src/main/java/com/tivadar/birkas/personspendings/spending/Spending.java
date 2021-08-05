@@ -1,8 +1,8 @@
-package com.tivadar.birkas.personspendings.Spending;
+package com.tivadar.birkas.personspendings.spending;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.tivadar.birkas.personspendings.Person.Person;
+import com.tivadar.birkas.personspendings.person.Person;
 import lombok.*;
 
 import javax.persistence.*;

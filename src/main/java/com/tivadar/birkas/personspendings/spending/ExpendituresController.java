@@ -1,4 +1,4 @@
-package com.tivadar.birkas.personspendings.Spending;
+package com.tivadar.birkas.personspendings.spending;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
@@ -67,10 +67,11 @@ public class ExpendituresController {
         return expendituresService.getExpendituresByPersonId(id);
     }
 
+//    @GetMapping("/persons/{id}/betweencosts/{min}/and/{max}")
     @GetMapping("/persons/{id}/betweencosts/{min}/and/{max}")
     @Operation(summary = "Query all expenditures of a person by person's id between two cost")
-    public List<SpendingDto> getExpendituresByPerson_IdAndCostBetween(@PathVariable("id") long id, @PathVariable("min") int min, @PathVariable("max") int max) {
-        return expendituresService.getExpendituresByPerson_IdAndCostBetween(id, min, max);
+    public List<SpendingDto> getExpendituresByPersonIdAndCostBetween(@PathVariable("id") long id, @PathVariable("min") int min, @PathVariable("max") int max) {
+        return expendituresService.getExpendituresByPersonIdAndCostBetween(id, min, max);
     }
 
     @GetMapping("/years/{numberOfYear}/months/{numberOfMonth}")

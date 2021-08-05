@@ -1,4 +1,4 @@
-package com.tivadar.birkas.personspendings.Person;
+package com.tivadar.birkas.personspendings.person;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
-package com.tivadar.birkas.personspendings.Spending;
+package com.tivadar.birkas.personspendings.spending;
 
-import com.tivadar.birkas.personspendings.Person.Person;
+import com.tivadar.birkas.personspendings.person.Person;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -35,8 +35,8 @@ public class ExpendituresService {
         return modelMapper.map(spending, SpendingDto.class);
     }
 
-    public List<SpendingDto> getExpendituresByPerson_IdAndCostBetween(Long id, int min, int max) {
-        return repository.findAllByPerson_IdAndCostBetween(id, min, max).stream()
+    public List<SpendingDto> getExpendituresByPersonIdAndCostBetween(Long id, int min, int max) {
+        return repository.findAllByPersonIdAndCostBetween(id, min, max).stream()
                 .map(sp -> modelMapper.map(sp, SpendingDto.class))
                 .toList();
     }
@@ -74,7 +74,7 @@ public class ExpendituresService {
     }
 
     public List<SpendingDto> getExpendituresByPersonId(long id) {
-        return repository.findAllByPerson_Id(id).stream()
+        return repository.findAllByPersonId(id).stream()
                 .map(sp -> modelMapper.map(sp, SpendingDto.class))
                 .toList();
     }

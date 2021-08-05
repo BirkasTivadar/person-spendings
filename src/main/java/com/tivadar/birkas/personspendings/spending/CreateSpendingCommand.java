@@ -1,5 +1,4 @@
-package com.tivadar.birkas.personspendings.Person;
-
+package com.tivadar.birkas.personspendings.spending;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,10 +13,10 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddSpendingCommand {
+public class CreateSpendingCommand {
 
     @NotNull
-    private LocalDate date;
+    private LocalDate spendingDate;
 
     @NotBlank(message = "Product or service can not be blank")
     @Size(message = "Product or service  must be less than one hundred characters", max = 99)
