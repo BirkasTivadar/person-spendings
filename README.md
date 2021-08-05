@@ -49,10 +49,10 @@ Végpontok:
       PUT-al lehet az adott költés összegét megváltoztatni (ekkor ha tartozik hozzá person, akkor az adott person összköltését is beállítja)
       DELETE-vel lehet az adott költést törölni
       
-    - /api/expenditures//persons/{id}
+    - /api/expenditures/persons/{id}
       GET-el person id-je alapján az adott person összköltéseit adja vissza listában
        
-    - /api/expenditures//persons/{id}/betweencosts/{min}/and/{max}
+    - /api/expenditures/persons/{id}/betweencosts/{min}/and/{max}
       GET-el person id-je alapján az adott person min és max összeg közötti költéseit kapjuk vissza listában
       
     - /api/expenditures/years/{numberOfYear}/months/{numberOfMonth}
