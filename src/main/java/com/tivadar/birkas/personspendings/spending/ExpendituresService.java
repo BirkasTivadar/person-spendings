@@ -18,26 +18,26 @@ public class ExpendituresService {
 
     private ExpendituresRepository repository;
 
-    public List<SpendingDto> getExpenditures() {
+    public List<SpendingDTO> getExpenditures() {
         return repository.findAll().stream()
-                .map(sp -> modelMapper.map(sp, SpendingDto.class))
+                .map(sp -> modelMapper.map(sp, SpendingDTO.class))
                 .toList();
     }
 
-    public SpendingDto getSpendingById(long id) {
+    public SpendingDTO getSpendingById(long id) {
         Spending spending = repository.findById(id).orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_SPENDING_WITH_ID + id));
-        return modelMapper.map(spending, SpendingDto.class);
+        return modelMapper.map(spending, SpendingDTO.class);
     }
 
-    public SpendingDto createSpending(CreateSpendingCommand command) {
+    public SpendingDTO createSpending(CreateSpendingCommand command) {
         Spending spending = new Spending(command.getSpendingDate(), command.getProductOrService(), command.getCost());
         repository.save(spending);
-        return modelMapper.map(spending, SpendingDto.class);
+        return modelMapper.map(spending, SpendingDTO.class);
     }
 
-    public List<SpendingDto> getExpendituresByPersonIdAndCostBetween(Long id, int min, int max) {
+    public List<SpendingDTO> getExpendituresByPersonIdAndCostBetween(Long id, int min, int max) {
         return repository.findAllByPersonIdAndCostBetween(id, min, max).stream()
-                .map(sp -> modelMapper.map(sp, SpendingDto.class))
+                .map(sp -> modelMapper.map(sp, SpendingDTO.class))
                 .toList();
     }
 
@@ -46,11 +46,11 @@ public class ExpendituresService {
     }
 
     @Transactional
-    public SpendingDto changeSpendingCost(long id, ChangeSpendingCostCommand command) {
+    public SpendingDTO changeSpendingCost(long id, ChangeSpendingCostCommand command) {
         Spending spending = repository.findById(id).orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_SPENDING_WITH_ID + id));
         setSumCosts(command, spending);
         spending.setCost(command.getCost());
-        return modelMapper.map(spending, SpendingDto.class);
+        return modelMapper.map(spending, SpendingDTO.class);
     }
 
     private void setSumCosts(ChangeSpendingCostCommand command, Spending spending) {
@@ -73,9 +73,9 @@ public class ExpendituresService {
         repository.deleteAll();
     }
 
-    public List<SpendingDto> getExpendituresByPersonId(long id) {
+    public List<SpendingDTO> getExpendituresByPersonId(long id) {
         return repository.findAllByPersonId(id).stream()
-                .map(sp -> modelMapper.map(sp, SpendingDto.class))
+                .map(sp -> modelMapper.map(sp, SpendingDTO.class))
                 .toList();
     }
 }

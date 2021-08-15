@@ -24,14 +24,14 @@ public class PersonsController {
 
     @GetMapping
     @Operation(summary = "Query all persons")
-    public List<PersonDto> getPersons() {
+    public List<PersonDTO> getPersons() {
         return personsService.getPersons();
     }
 
     @PostMapping
     @Operation(summary = "Create a person")
     @ResponseStatus(HttpStatus.CREATED)
-    public PersonDto createPerson(@Valid @RequestBody CreatePersonCommand command) {
+    public PersonDTO createPerson(@Valid @RequestBody CreatePersonCommand command) {
         return personsService.createPerson(command);
     }
 
@@ -44,19 +44,19 @@ public class PersonsController {
 
     @GetMapping("{id}")
     @Operation(summary = "Query a person by id")
-    public PersonDto getPersonById(@PathVariable("id") long id) {
+    public PersonDTO getPersonById(@PathVariable("id") long id) {
         return personsService.getPersonById(id);
     }
 
     @PutMapping("{id}")
     @Operation(summary = "Change the name of a person by id")
-    public PersonDto changePersonName(@PathVariable("id") long id, @Valid @RequestBody ChangePersonNameCommand command) {
+    public PersonDTO changePersonName(@PathVariable("id") long id, @Valid @RequestBody ChangePersonNameCommand command) {
         return personsService.changePersonName(id, command);
     }
 
     @PostMapping("{id}")
     @Operation(summary = "Add a spending to person by id")
-    public PersonDto addSpendingToPerson(@PathVariable("id") long id, @RequestBody AddSpendingCommand command) {
+    public PersonDTO addSpendingToPerson(@PathVariable("id") long id, @Valid @RequestBody AddSpendingCommand command) {
         return personsService.addSpendingToPerson(id, command);
     }
 

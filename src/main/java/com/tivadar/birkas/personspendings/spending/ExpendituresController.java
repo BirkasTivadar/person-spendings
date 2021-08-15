@@ -24,14 +24,14 @@ public class ExpendituresController {
 
     @GetMapping
     @Operation(summary = "Query all expenditures")
-    public List<SpendingDto> getExpenditures() {
+    public List<SpendingDTO> getExpenditures() {
         return expendituresService.getExpenditures();
     }
 
     @PostMapping
     @Operation(summary = "Create a spending")
     @ResponseStatus(HttpStatus.CREATED)
-    public SpendingDto createSpending(@Valid @RequestBody CreateSpendingCommand command) {
+    public SpendingDTO createSpending(@Valid @RequestBody CreateSpendingCommand command) {
         return expendituresService.createSpending(command);
     }
 
@@ -44,13 +44,13 @@ public class ExpendituresController {
 
     @GetMapping("{id}")
     @Operation(summary = "Query a spending by id")
-    public SpendingDto getSpendingById(@PathVariable("id") long id) {
+    public SpendingDTO getSpendingById(@PathVariable("id") long id) {
         return expendituresService.getSpendingById(id);
     }
 
     @PutMapping("{id}")
     @Operation(summary = "Change the cost of a spending by id")
-    public SpendingDto changeSpendingCost(@PathVariable("id") long id, @Valid @RequestBody ChangeSpendingCostCommand command) {
+    public SpendingDTO changeSpendingCost(@PathVariable("id") long id, @Valid @RequestBody ChangeSpendingCostCommand command) {
         return expendituresService.changeSpendingCost(id, command);
     }
 
@@ -63,14 +63,14 @@ public class ExpendituresController {
 
     @GetMapping("/persons/{id}")
     @Operation(summary = "Query all expenditures of a person by person's id")
-    public List<SpendingDto> getExpendituresByPersonId(@PathVariable("id") long id) {
+    public List<SpendingDTO> getExpendituresByPersonId(@PathVariable("id") long id) {
         return expendituresService.getExpendituresByPersonId(id);
     }
 
 //    @GetMapping("/persons/{id}/betweencosts/{min}/and/{max}")
     @GetMapping("/persons/{id}/betweencosts/{min}/and/{max}")
     @Operation(summary = "Query all expenditures of a person by person's id between two cost")
-    public List<SpendingDto> getExpendituresByPersonIdAndCostBetween(@PathVariable("id") long id, @PathVariable("min") int min, @PathVariable("max") int max) {
+    public List<SpendingDTO> getExpendituresByPersonIdAndCostBetween(@PathVariable("id") long id, @PathVariable("min") int min, @PathVariable("max") int max) {
         return expendituresService.getExpendituresByPersonIdAndCostBetween(id, min, max);
     }
 

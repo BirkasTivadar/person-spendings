@@ -32,75 +32,75 @@ public class PersonsControllerRestTemplateIT {
     @DisplayName("Create two persons then query all")
     void testGetPersons() {
         template.postForObject(DEFAULT_URL,
-                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
+                new CreatePersonCommand("123456789", "John Doe"), PersonDTO.class);
 
         template.postForObject(DEFAULT_URL,
-                new CreatePersonCommand("856456789", "Jane Doe"), PersonDto.class);
+                new CreatePersonCommand("856456789", "Jane Doe"), PersonDTO.class);
 
-        List<PersonDto> persons = template.exchange(DEFAULT_URL,
+        List<PersonDTO> persons = template.exchange(DEFAULT_URL,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<PersonDto>>() {
+                new ParameterizedTypeReference<List<PersonDTO>>() {
                 })
                 .getBody();
 
         assertThat(persons)
-                .extracting(PersonDto::getName)
+                .extracting(PersonDTO::getName)
                 .containsExactly("John Doe", "Jane Doe");
     }
 
     @Test
     @DisplayName("Create a person then query by id")
     void testGetPersonById() {
-        PersonDto person = template.postForObject(DEFAULT_URL,
-                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
+        PersonDTO person = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "John Doe"), PersonDTO.class);
 
         long id = person.getId();
 
-        PersonDto testPerson = template.exchange(DEFAULT_URL + id,
+        PersonDTO testPerson = template.exchange(DEFAULT_URL + id,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<PersonDto>() {
+                new ParameterizedTypeReference<PersonDTO>() {
                 }
         ).getBody();
 
         assertThat(testPerson)
-                .extracting(PersonDto::getName)
+                .extracting(PersonDTO::getName)
                 .isEqualTo("John Doe");
     }
 
     @Test
     @DisplayName("Create a person and update then query")
     void testUpdatePerson() {
-        PersonDto person = template.postForObject(DEFAULT_URL,
-                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
+        PersonDTO person = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "John Doe"), PersonDTO.class);
 
         long id = person.getId();
 
         template.put(DEFAULT_URL + id, new ChangePersonNameCommand("John Jack Doe"));
 
-        PersonDto testPerson = template.exchange(DEFAULT_URL + id,
+        PersonDTO testPerson = template.exchange(DEFAULT_URL + id,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<PersonDto>() {
+                new ParameterizedTypeReference<PersonDTO>() {
                 }
         ).getBody();
 
         assertThat(testPerson)
-                .extracting(PersonDto::getName)
+                .extracting(PersonDTO::getName)
                 .isEqualTo("John Jack Doe");
     }
 
     @Test
     @DisplayName("Create a person with exists SSN")
     void testCreatePersonWithExistsSsn() {
-        PersonDto person = template.postForObject(DEFAULT_URL,
-                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
+        PersonDTO person = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "John Doe"), PersonDTO.class);
 
         long id = person.getId();
 
-        PersonDto testPerson = template.postForObject(DEFAULT_URL,
-                new CreatePersonCommand("123456789", "Jack Doe"), PersonDto.class);
+        PersonDTO testPerson = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "Jack Doe"), PersonDTO.class);
 
         assertEquals(testPerson.getName(), person.getName());
     }
@@ -108,18 +108,18 @@ public class PersonsControllerRestTemplateIT {
     @Test
     @DisplayName("Create a person, add a spending to it, then query")
     void testAddSpendingToPerson() {
-        PersonDto person = template.postForObject(DEFAULT_URL,
-                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
+        PersonDTO person = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "John Doe"), PersonDTO.class);
 
         long id = person.getId();
 
         template.postForObject(DEFAULT_URL + id,
-                new AddSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), PersonDto.class);
+                new AddSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), PersonDTO.class);
 
-        PersonDto testPerson = template.exchange(DEFAULT_URL + id,
+        PersonDTO testPerson = template.exchange(DEFAULT_URL + id,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<PersonDto>() {
+                new ParameterizedTypeReference<PersonDTO>() {
                 }).getBody();
 
         int cost = testPerson.getSpendingList().get(0).getCost();
@@ -130,24 +130,24 @@ public class PersonsControllerRestTemplateIT {
     @Test
     @DisplayName("Create a person and add it some expenditures then query sum of costs")
     void testSumCosts() {
-        PersonDto person = template.postForObject(DEFAULT_URL,
-                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
+        PersonDTO person = template.postForObject(DEFAULT_URL,
+                new CreatePersonCommand("123456789", "John Doe"), PersonDTO.class);
 
         long id = person.getId();
 
         template.postForObject(DEFAULT_URL + id,
-                new AddSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), PersonDto.class);
+                new AddSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), PersonDTO.class);
 
         template.postForObject(DEFAULT_URL + id,
-                new AddSpendingCommand(LocalDate.of(2010, 10, 10), "haircut", 1850), PersonDto.class);
+                new AddSpendingCommand(LocalDate.of(2010, 10, 10), "haircut", 1850), PersonDTO.class);
 
         template.postForObject(DEFAULT_URL + id,
-                new AddSpendingCommand(LocalDate.of(2020, 12, 20), "apple", 75), PersonDto.class);
+                new AddSpendingCommand(LocalDate.of(2020, 12, 20), "apple", 75), PersonDTO.class);
 
-        PersonDto testPerson = template.exchange(DEFAULT_URL + id,
+        PersonDTO testPerson = template.exchange(DEFAULT_URL + id,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<PersonDto>() {
+                new ParameterizedTypeReference<PersonDTO>() {
                 }).getBody();
 
         assertEquals(201_925, testPerson.getSumCosts());

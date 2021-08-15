@@ -1,16 +1,17 @@
 package com.tivadar.birkas.personspendings.person;
 
-import com.tivadar.birkas.personspendings.spending.Spending;
+import com.tivadar.birkas.personspendings.spending.SpendingDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonDto {
+public class PersonDTO {
 
     private Long id;
 
@@ -20,5 +21,5 @@ public class PersonDto {
 
     private Long sumCosts;
 
-    private List<Spending> spendingList;
+    private List<SpendingDTO> spendingList = new ArrayList<>();
 }

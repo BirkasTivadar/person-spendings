@@ -31,7 +31,6 @@ public class Spending {
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonBackReference
     private Person person;
 
     public Spending(LocalDate spendingDate, String productOrService, int cost) {
