@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/api/expenditures")
 public class ExpendituresController {
 
-    private ExpendituresService expendituresService;
+    private final ExpendituresService expendituresService;
 
     public ExpendituresController(ExpendituresService expendituresService) {
         this.expendituresService = expendituresService;
@@ -67,16 +67,15 @@ public class ExpendituresController {
         return expendituresService.getExpendituresByPersonId(id);
     }
 
-//    @GetMapping("/persons/{id}/betweencosts/{min}/and/{max}")
-    @GetMapping("/persons/{id}/betweencosts/{min}/and/{max}")
+    @GetMapping("/persons/{id}/betweencosts/")
     @Operation(summary = "Query all expenditures of a person by person's id between two cost")
-    public List<SpendingDTO> getExpendituresByPersonIdAndCostBetween(@PathVariable("id") long id, @PathVariable("min") int min, @PathVariable("max") int max) {
+    public List<SpendingDTO> getExpendituresByPersonIdAndCostBetween(@PathVariable("id") long id, @RequestParam(name = "min", required = false) Integer min, @RequestParam(name = "max", required = false) Integer max) {
         return expendituresService.getExpendituresByPersonIdAndCostBetween(id, min, max);
     }
 
-    @GetMapping("/years/{numberOfYear}/months/{numberOfMonth}")
+    @GetMapping("/sumofcostinyearormonth/")
     @Operation(summary = "Query sum of costs of this month")
-    public Integer getSumCostsOfMonth(@PathVariable("numberOfYear") int numberOfYear, @PathVariable("numberOfMonth") int numberOfMonth) {
+    public Integer getSumCostsOfMonth(@RequestParam(name = "year", required = true) Integer numberOfYear, @RequestParam(name = "month", required = false) Integer numberOfMonth) {
         return expendituresService.getSumCostsOfMonth(numberOfYear, numberOfMonth);
     }
 

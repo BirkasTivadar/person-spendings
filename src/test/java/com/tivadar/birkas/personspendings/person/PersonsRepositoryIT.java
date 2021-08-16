@@ -16,8 +16,8 @@ public class PersonsRepositoryIT {
     @Autowired
     PersonsRepository repository;
 
-    private Person john = new Person("123456789", "John Doe");
-    private Person jane = new Person("856456789", "Jane Doe");
+    private final Person john = new Person("123456789", "John Doe");
+    private final Person jane = new Person("856456789", "Jane Doe");
 
     @BeforeEach
     void init() {

@@ -1,13 +1,10 @@
 package com.tivadar.birkas.personspendings.spending;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tivadar.birkas.personspendings.person.Person;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-//import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -45,7 +42,6 @@ public class Spending {
         this.cost = cost;
         this.person = person;
     }
-
 }
 
 

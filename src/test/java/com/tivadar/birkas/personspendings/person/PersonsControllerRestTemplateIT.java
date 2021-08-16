@@ -38,10 +38,10 @@ public class PersonsControllerRestTemplateIT {
                 new CreatePersonCommand("856456789", "Jane Doe"), PersonDTO.class);
 
         List<PersonDTO> persons = template.exchange(DEFAULT_URL,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<PersonDTO>>() {
-                })
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<List<PersonDTO>>() {
+                        })
                 .getBody();
 
         assertThat(persons)
@@ -97,8 +97,6 @@ public class PersonsControllerRestTemplateIT {
         PersonDTO person = template.postForObject(DEFAULT_URL,
                 new CreatePersonCommand("123456789", "John Doe"), PersonDTO.class);
 
-        long id = person.getId();
-
         PersonDTO testPerson = template.postForObject(DEFAULT_URL,
                 new CreatePersonCommand("123456789", "Jack Doe"), PersonDTO.class);
 
@@ -114,7 +112,7 @@ public class PersonsControllerRestTemplateIT {
         long id = person.getId();
 
         template.postForObject(DEFAULT_URL + id,
-                new AddSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), PersonDTO.class);
+                new AddSpendingCommand(LocalDate.of(2000, 1, 1), "Apple laptop", 200_000), PersonDTO.class);
 
         PersonDTO testPerson = template.exchange(DEFAULT_URL + id,
                 HttpMethod.GET,
@@ -136,7 +134,7 @@ public class PersonsControllerRestTemplateIT {
         long id = person.getId();
 
         template.postForObject(DEFAULT_URL + id,
-                new AddSpendingCommand(LocalDate.of(2000, 01, 01), "Apple laptop", 200_000), PersonDTO.class);
+                new AddSpendingCommand(LocalDate.of(2000, 1, 1), "Apple laptop", 200_000), PersonDTO.class);
 
         template.postForObject(DEFAULT_URL + id,
                 new AddSpendingCommand(LocalDate.of(2010, 10, 10), "haircut", 1850), PersonDTO.class);
@@ -181,21 +179,4 @@ public class PersonsControllerRestTemplateIT {
         assertEquals(URI.create("person/not-found"), result.getType());
         assertEquals(Status.NOT_FOUND, result.getStatus());
     }
-
-
-//    @Test
-//    void changePersonNameWithInvalidName(){
-//        PersonDto person = template.postForObject(DEFAULT_URL,
-//                new CreatePersonCommand("123456789", "John Doe"), PersonDto.class);
-//
-//        Long id = person.getId();
-//
-//        Problem result = template.postForObject(
-//                DEFAULT_URL + "1",
-//                new ChangePersonNameCommand("J"),
-//                Problem.class);
-//
-//        assertEquals(URI.create("person/invalid-name"), result.getType());
-//        assertEquals(Status.BAD_REQUEST, result.getStatus());
-//    }
 }

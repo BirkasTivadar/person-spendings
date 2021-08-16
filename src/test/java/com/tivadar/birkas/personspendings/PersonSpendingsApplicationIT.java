@@ -9,5 +9,4 @@ class PersonSpendingsApplicationIT {
     @Test
     void contextLoads() {
     }
-
 }

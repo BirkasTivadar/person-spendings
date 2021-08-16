@@ -17,12 +17,12 @@ class ExpendituresRepositoryIT {
     @Autowired
     ExpendituresRepository repository;
 
-    private Spending bread = new Spending(
+    private final Spending bread = new Spending(
             LocalDate.of(2020, 10, 10),
             "bread",
             35);
 
-    private Spending haircut = new Spending(
+    private final Spending haircut = new Spending(
             LocalDate.of(2021, 11, 11),
             "haircut",
             1900);

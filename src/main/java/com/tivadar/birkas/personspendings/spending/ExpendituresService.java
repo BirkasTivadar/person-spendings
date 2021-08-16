@@ -35,14 +35,22 @@ public class ExpendituresService {
         return modelMapper.map(spending, SpendingDTO.class);
     }
 
-    public List<SpendingDTO> getExpendituresByPersonIdAndCostBetween(Long id, int min, int max) {
+    public List<SpendingDTO> getExpendituresByPersonIdAndCostBetween(Long id, Integer min, Integer max) {
+        if (min == null) min = 0;
+        if (max == null) max = Integer.MAX_VALUE;
         return repository.findAllByPersonIdAndCostBetween(id, min, max).stream()
                 .map(sp -> modelMapper.map(sp, SpendingDTO.class))
                 .toList();
     }
 
-    public Integer getSumCostsOfMonth(int numOfYear, int numOfMonth){
-        return repository.sumCostsOfMonth(numOfYear, numOfMonth);
+    public Integer getSumCostsOfMonth(Integer numOfYear, Integer numOfMonth) {
+
+        if (numOfMonth == null) {
+            return repository.sumCostsOfYear(numOfYear);
+        } else {
+            return repository.sumCostsOfMonth(numOfYear, numOfMonth);
+        }
+
     }
 
     @Transactional
@@ -56,7 +64,7 @@ public class ExpendituresService {
     private void setSumCosts(ChangeSpendingCostCommand command, Spending spending) {
         int minusCost = spending.getCost();
         int newCost = command.getCost();
-        if(spending.getPerson() != null){
+        if (spending.getPerson() != null) {
             Person person = spending.getPerson();
             long cost = person.getSumCosts();
             cost -= minusCost;

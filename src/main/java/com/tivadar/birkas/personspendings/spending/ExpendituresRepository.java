@@ -13,4 +13,9 @@ public interface ExpendituresRepository extends JpaRepository<Spending, Long> {
 
     @Query("select SUM(s.cost) from Spending s where YEAR(spendingDate) = :numOfYear AND MONTH(spendingDate) = :numOfMonth")
     Integer sumCostsOfMonth(int numOfYear, int numOfMonth);
+
+    @Query("select SUM(s.cost) from Spending s where YEAR(spendingDate) = :numOfYear")
+    Integer sumCostsOfYear(int numOfYear);
+
+
 }

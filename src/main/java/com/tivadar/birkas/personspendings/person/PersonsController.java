@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/api/persons/")
 public class PersonsController {
 
-    private PersonsService personsService;
+    private final PersonsService personsService;
 
     public PersonsController(PersonsService personsService) {
         this.personsService = personsService;
@@ -82,19 +82,4 @@ public class PersonsController {
                 .contentType(MediaType.APPLICATION_PROBLEM_JSON)
                 .body(problem);
     }
-
-//    @ExceptionHandler(IllegalStateException.class)
-//    public ResponseEntity<Problem> handleNotFound(IllegalStateException exception) {
-//        Problem problem = Problem.builder()
-//                .withType(URI.create("person/invalid-name"))
-//                .withTitle("Invalid Name")
-//                .withStatus(Status.BAD_REQUEST)
-//                .withDetail(exception.getMessage())
-//                .build();
-//
-//        return ResponseEntity
-//                .status(HttpStatus.BAD_REQUEST)
-//                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
-//                .body(problem);
-//    }
 }

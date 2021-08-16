@@ -7,5 +7,4 @@ public interface PersonsRepository extends JpaRepository<Person, Long> {
     Boolean existsPersonBySocialSecurityNumber(String socialSecurityNumber);
 
     Person findPersonBySocialSecurityNumber(String socialSecurityNumber);
-
 }

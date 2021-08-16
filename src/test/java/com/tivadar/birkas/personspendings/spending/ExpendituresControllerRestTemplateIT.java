@@ -37,10 +37,10 @@ public class ExpendituresControllerRestTemplateIT {
                 new CreateSpendingCommand(LocalDate.of(2020, 6, 30), "haircut", 1800), SpendingDTO.class);
 
         List<SpendingDTO> spendingDTOList = template.exchange(DEFAULT_URL,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<SpendingDTO>>() {
-                })
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<List<SpendingDTO>>() {
+                        })
                 .getBody();
 
         assertThat(spendingDTOList)
@@ -57,10 +57,10 @@ public class ExpendituresControllerRestTemplateIT {
         long id = spending.getId();
 
         SpendingDTO testSpending = template.exchange(DEFAULT_URL + id,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<SpendingDTO>() {
-                })
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<SpendingDTO>() {
+                        })
                 .getBody();
 
         assertThat(testSpending)
@@ -79,10 +79,10 @@ public class ExpendituresControllerRestTemplateIT {
         template.put(DEFAULT_URL + id, new ChangeSpendingCostCommand(15_000));
 
         SpendingDTO testSpending = template.exchange(DEFAULT_URL + id,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<SpendingDTO>() {
-                })
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<SpendingDTO>() {
+                        })
                 .getBody();
 
         assertThat(testSpending)

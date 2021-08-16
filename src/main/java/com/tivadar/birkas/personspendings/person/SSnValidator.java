@@ -14,8 +14,7 @@ public class SSnValidator implements ConstraintValidator<Ssn, String> {
     @Override
     public boolean isValid(String ssn, ConstraintValidatorContext constraintValidatorContext) {
         Matcher matcher = createMatcher(ssn);
-        return ssn != null &&
-                !ssn.isBlank() &&
+        return !ssn.isBlank() &&
                 ssn.length() == Person.SSN_LENGTH &&
                 matcher.matches();
     }
