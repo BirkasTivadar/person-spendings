@@ -61,7 +61,7 @@ Végpontok:
 Két repository, két service és két kontroller
 
 Tesztek:
-  - RestTEmplate tesztek mindkét kontrollerre
+  - RestTemplate tesztek mindkét kontrollerre
   - DtaJpaTest tesztek mindkét service-re
   
   Tesztlefedettség:
