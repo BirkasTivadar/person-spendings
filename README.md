@@ -52,10 +52,10 @@ Végpontok:
     - /api/expenditures/persons/{id}
       GET-el person id-je alapján az adott person összköltéseit adja vissza listában
        
-    - /api/expenditures/persons/{id}/betweencosts/{min}/and/{max}
+    - /api/expenditures/persons/{id}/betweencosts/
       GET-el person id-je alapján az adott person min és max összeg közötti költéseit kapjuk vissza listában
       
-    - /api/expenditures/years/{numberOfYear}/months/{numberOfMonth}
+    - /api/expenditures/sumofcostinyearormonth/}
       GET-el adott év adott hónapjának költéseinek összköltését kapjuk vissza egész számként
       
 Két repository, két service és két kontroller
